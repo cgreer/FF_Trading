@@ -1,4 +1,8 @@
 
+REQUIRES:
+- unix (grep/sed/uniq/sort)
+- phantomjs (http://phantomjs.org/)
+
 SCRAPING STATS
 
 - change "username" and "myPassword" global var @ top of downloadplayerprojections.js 
@@ -22,3 +26,17 @@ CALCULATE TRADES
 
     for i in "1 1" "1 2" "2 1" "2 2"; do phantomjs trade.js $i; done
 
+
+OUTPUT FORMAT
+
+yourName
+tradee name
+players you are trading
+players you are getting
+your points difference
+their points difference
+total difference  
+players that were dropped from your starting lineup
+players that were added to your starting linup
+players that were dropped from their starting lineup
+players that were added to their starting linup
