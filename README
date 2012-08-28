@@ -16,6 +16,9 @@ SCRAPING STATS
 CALCULATE TRADES
 - change "yourTeamName" global var @ top of trade.js
   - replace any spaces in your name with "_"
+- change "teamStartingPositions" if your team format is different
+- change "startingPositionInjections"
+  - these points represent the highest possible points you could get from a Free Agent for each position
 
     (cwd is this dir)
     phantomjs trade.js 1 1

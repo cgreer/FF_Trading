@@ -8,6 +8,7 @@ phantom.injectJs('./phantom_utility.js');
 yourTeamName="Darren_U_2_Lock_Me";
 injectionPositions =        ["QB", "QB", "WR", "WR", "WR", "WR", "RB", "RB", "TE", "RB", "WR", "K", "K", "DEF", "DEF", "S", "CB", "DE"];
 startingPositionInjections = [137, 137,   73,   67,   67,   67,   107,  87,   60,   87,   67,   65, 65,   190,   190,   20,  20,   30];
+
 teamStartingPositions = ["QB", "QB", "WR", "WR", "WR", "WR", "RB", "RB", "TE", "W/R", "W/T"];
 //teamStartingPositions = ["QB", "QB", "WR", "WR", "WR", "WR", "RB", "RB", "TE", "W/R", "W/T", "K", "K", "DEF", "DEF", "DB", "DL", "D"];
 position_acceptablePlayerType = { "QB" : ["QB"],
