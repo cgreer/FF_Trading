@@ -1,0 +1,24 @@
+
+SCRAPING STATS
+
+- change "username" and "myPassword" global var @ top of downloadplayerprojections.js 
+- (uses grep/sed/sort/uniq for linux)
+
+    (cwd is this dir)
+    ./scrapeall.sh
+
+- NOTE: current ./final.scraped.txt is up to date as of Aug28 if you just want to skip scraping
+
+CALCULATE TRADES
+- change "yourTeamName" global var @ top of trade.js
+  - replace any spaces in your name with "_"
+
+    (cwd is this dir)
+    phantomjs trade.js 1 1
+
+- the first number is the number of players you are trading
+- the second number is the number of players you are getting in the trade.
+- So if you wanted to calculate up to 2 x 2 (going higher might take a long time)
+
+    for i in "1 1" "1 2" "2 1" "2 2"; do phantomjs trade.js $i; done
+
