@@ -257,13 +257,13 @@ function analyze_trade(team1, team2, playerIDs1, playerIDs2, inspect){
     //make trades
     var playersTraded1 = [];
     _.each(playerIDs1, function (pID){
-            playersTraded1.push(teamCopy1.id_player[pID].name + "(" + pID + ")");
+            playersTraded1.push(teamCopy1.id_player[pID].name + "(" + pID + "," + teamCopy1.id_player[pID].points + ")");
             teamCopy1.trade_player_to(teamCopy2, pID);
             });
     
     var playersTraded2 = [];
     _.each(playerIDs2, function (pID){
-            playersTraded2.push(teamCopy2.id_player[pID].name + "(" + pID + ")");
+            playersTraded2.push(teamCopy2.id_player[pID].name + "(" + pID + "," + teamCopy2.id_player[pID].points + ")");
             teamCopy2.trade_player_to(teamCopy1, pID);
             });
 
@@ -285,7 +285,11 @@ function analyze_trade(team1, team2, playerIDs1, playerIDs2, inspect){
     var pointsDifference1 = Math.round(bestPointsAfter1 - bestPointsBefore1);
     var pointsDifference2 = Math.round(bestPointsAfter2 - bestPointsBefore2);
     var pointsDifferenceTotal = pointsDifference1 + pointsDifference2;
-    log_sep(teamCopy1.name, teamCopy2.name, playersTraded1, playersTraded2, pointsDifference1, pointsDifference2, pointsDifferenceTotal, dropped, added, dropped2, added2);
+
+    //only report it if it is not completely terrible
+    if ((pointsDifference1 > 0) && (pointsDifference2 > 0)){
+        log_sep(teamCopy1.name, teamCopy2.name, playersTraded1, playersTraded2, pointsDifference1, pointsDifference2, pointsDifferenceTotal, dropped, added, dropped2, added2);
+    }
 
     if (inspect){
         console.log("PLAYER ONE BEFORE CONFIG");
@@ -339,7 +343,6 @@ else {
     var otherTeamNames = _.keys(tName_team);
     otherTeamNames = _.difference(otherTeamNames, [yourTeamName]);
     _.each(otherTeamNames, function(otherTeamName){
-            console.log(system.args);
             analyze_all_n_by_n(tName_team[yourTeamName], tName_team[otherTeamName], Number(system.args[1]), Number(system.args[2]));
             
             });
