@@ -1,10 +1,8 @@
-
 REQUIRES:
 - unix (grep/sed/uniq/sort)
 - phantomjs (http://phantomjs.org/)
 
-SCRAPING STATS
-
+SCRAPING STATS:
 - change "username" and "myPassword" global var @ top of downloadplayerprojections.js 
 - (uses grep/sed/sort/uniq for linux)
 
@@ -13,7 +11,7 @@ SCRAPING STATS
 
 - NOTE: current ./final.scraped.txt is up to date as of Aug28 if you just want to skip scraping
 
-CALCULATE TRADES
+CALCULATE TRADES:
 - change "yourTeamName" global var @ top of trade.js
   - replace any spaces in your name with "_"
 - change "teamStartingPositions" if your team format is different
@@ -30,7 +28,8 @@ CALCULATE TRADES
     for i in "1 1" "1 2" "2 1" "2 2"; do phantomjs trade.js $i; done
 
 
-OUTPUT FORMAT
+OUTPUT FORMAT:
+(by column)
 
 yourName
 tradee name
