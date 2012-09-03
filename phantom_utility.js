@@ -6,6 +6,22 @@ function get_content_from_local_file(filePath){
     return pageContent;
 }
 
+function column_to_array(fileName, column, sep){
+    //return a column of data as an array
+    var sep = sep || "\t";
+
+    var fileContents = fs.open(fileName, 'r').read().split("\n");
+    var returnArray = [];
+    for (var i = 0; i < fileContents.length; i++) {
+        var fileLine = fileContents[i];
+        if (fileLine !== "") {
+            returnArray.push(fileLine.split(sep)[Number(column)]); 
+        }
+    };
+    
+    return returnArray;
+}
+
 function get_epoch_time(){
     return new Date()/1;
 }

@@ -5,8 +5,13 @@ phantom.injectJs('./underscore.js');
 phantom.injectJs('./phantom_utility.js');
 
 //globals
-username="imhungry8804";
-myPassword="***********";
+var configData = column_to_array('./info.config', 0);
+username = configData[0];
+myPassword = configData[1];
+if (myPassword[0] === "*") {
+    console.log("CHANGE PASSWORD IN info.config");
+    phantom.exit();
+}
 remainingPointsURL = "http://football.fantasysports.yahoo.com/f1/91352/REPLACE_ME/team?_scrumb=BoJKhRvhQE5&stat1=P&stat2=PSR_2012";
 
 processState = 'homepage';

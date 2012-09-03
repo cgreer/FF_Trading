@@ -2,21 +2,21 @@ REQUIRES:
 - unix (grep/sed/uniq/sort)
 - phantomjs (http://phantomjs.org/)
 
+CONFIGURING:  
+- change values in info.config to reflect your username, password, teamname
+  - replace spaces with underscores ("_") in your team name if they have any
+- change values in ./free_agent_points.conf 
+  - row represents the highest projected points you can get from the Free Agent pool.
+
 SCRAPING STATS:
-- change "username" and "myPassword" global var @ top of downloadplayerprojections.js 
-- (uses grep/sed/sort/uniq for linux)
 
     (cwd is this dir)
     ./scrapeall.sh
 
-- NOTE: current ./final.scraped.txt is up to date as of Aug28 if you just want to skip scraping
+- NOTE: current ./final.scraped.txt is up to date as of Sep 3 if you just want to skip scraping
 
 CALCULATE TRADES:
-- change "yourTeamName" global var @ top of trade.js
-  - replace any spaces in your name with "_"
 - change "teamStartingPositions" if your team format is different
-- change "startingPositionInjections"
-  - these points represent the highest possible points you could get from a Free Agent for each position
 
     (cwd is this dir)
     phantomjs trade.js 1 1
@@ -38,7 +38,7 @@ players you are getting
 your points difference
 their points difference
 total difference  
-players that were dropped from your starting lineup
-players that were added to your starting linup
-players that were dropped from their starting lineup
-players that were added to their starting linup
+players that were dropped from your optimal season starting lineup
+players that were added to your optimal season starting linup
+players that were dropped from their optimal season starting lineup
+players that were added to their optimal season starting linup

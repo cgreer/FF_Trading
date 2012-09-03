@@ -5,12 +5,14 @@ phantom.injectJs('./jquery.js');
 phantom.injectJs('./phantom_utility.js');
 
 //globals
-yourTeamName="Darren_U_2_Lock_Me";
-injectionPositions =        ["QB", "QB", "WR", "WR", "WR", "WR", "RB", "RB", "TE", "RB", "WR", "K", "K", "DEF", "DEF", "S", "CB", "DE"];
-startingPositionInjections = [137, 137,   73,   67,   67,   67,   107,  87,   60,   87,   67,   65, 65,   190,   190,   20,  20,   30];
+yourTeamName = column_to_array('./info.config', 0)[2];
+injectionPositions = column_to_array('./free_agent_points.conf', 0);
+startingPositionInjections = column_to_array('./free_agent_points.conf', 1);
+startingPositionInjections = _.map(startingPositionInjections, function(x){return Number(x)});
 
 teamStartingPositions = ["QB", "QB", "WR", "WR", "WR", "WR", "RB", "RB", "TE", "W/R", "W/T"];
 //teamStartingPositions = ["QB", "QB", "WR", "WR", "WR", "WR", "RB", "RB", "TE", "W/R", "W/T", "K", "K", "DEF", "DEF", "DB", "DL", "D"];
+
 position_acceptablePlayerType = { "QB" : ["QB"],
                                   "WR" : ["WR"],
                                   "RB" : ["RB"],
@@ -67,8 +69,9 @@ function team (id, name){
     //total points
     var allPoints = _.map(_.values(this.id_player), function(p) {return p.points});
     console.log(_.reduce( allPoints, function(a,b) {return Number(a) + Number(b)}));
+    }
 }
-}
+
 
 function select_best_starting_players(team){
 
@@ -239,14 +242,17 @@ function analyze_trade(team1, team2, playerIDs1, playerIDs2, inspect){
     var injectCounter = 5000;
     var injectPosition__points = _.zip(injectionPositions, startingPositionInjections);
     _.each(injectPosition__points, function (iPos__points){
-            var faName = "FA_" + iPos__points[0];
-            var faPositions = iPos__points[0];
-            var faPoints = iPos__points[1]; 
-            teamCopy1.create_player(injectCounter, faName, [faPositions], faPoints); 
-            injectCounter++;
-            teamCopy2.create_player(injectCounter, faName, [faPositions], faPoints); 
-            injectCounter++;
-            }); 
+            //only inject if we are trading these position types
+            if (_.has(teamStartingPositions, iPos__points[0])) {
+                var faName = "FA_" + iPos__points[0];
+                var faPositions = iPos__points[0];
+                var faPoints = iPos__points[1]; 
+                teamCopy1.create_player(injectCounter, faName, [faPositions], faPoints); 
+                injectCounter++;
+                teamCopy2.create_player(injectCounter, faName, [faPositions], faPoints); 
+                injectCounter++;
+            } 
+        });
 
     //get a teams best projections for the current teams
     var bestConfigBefore1 = select_best_starting_players(teamCopy1);
@@ -339,7 +345,6 @@ else {
     var tName_team = create_teams_from_local_data("./final.scraped.txt");
 
     //do some trading
-    //analyze_trade(tName_team["Darren_U_2_Lock_Me"], tName_team["Collmie_Maybe"], ["4","10"], ["22"], true);
     var otherTeamNames = _.keys(tName_team);
     otherTeamNames = _.difference(otherTeamNames, [yourTeamName]);
     _.each(otherTeamNames, function(otherTeamName){
